@@ -3,8 +3,8 @@ from django.http import HttpResponse, Http404,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from . models import *
 from django.contrib.auth.forms import UserCreationForm
-# from .forms import ProfileForm,CommentsForm, ImageForm
-# from django.contrib.auth import authenticate,login,logout
+from .forms import ProfileForm,CommentsForm, ImageForm
+from django.contrib.auth import authenticate,login,logout
 
 # Create your views here.
 
@@ -21,3 +21,17 @@ def registerPage(request):
                 return redirect('login')
         context = {'form': form}
         return render(request,'registration/registration_form.html',  context)
+
+def loginPage(request):
+    if request.user.is_authenticated:
+        return redirect('/')
+    else:
+        form = UserCreationForm()
+        if request.method == 'POST':
+            username=request.POST.get('username')
+            password=request.POST.get('password')
+            user = authenticate(request, username=username ,password=password)
+            if user is not None:   
+                login(request, user)
+        context={'form': form}
+        return render(request,'registration/login.html',  context)

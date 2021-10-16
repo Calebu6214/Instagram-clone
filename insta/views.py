@@ -61,3 +61,9 @@ def indexPage(request):
     comments=Comments.objects.all()
     profile = Profile.objects.all()
     return render(request,'index.html',{"images":images,"comments":comments, "profile":profile})
+
+def profile(request):
+    current_user=request.user
+    profile_info = Profile.objects.filter(user=current_user).first()
+    posts =  request.user.image_set.all()
+    return render(request,'django_registration/profile.html',{"images":posts,"profile":profile_info,"current_user":current_user})

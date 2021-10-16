@@ -1,0 +1,27 @@
+{%extends 'base.html'%}
+{% load static %}
+ {% block content %}
+<div class="container">
+
+    <div class="row">
+        {% if searched_user %}
+        <h2>Found {{ searched_user|length }} of searched term {{message}}.</h2>
+        {% else %}
+        <h2> Found 0 users of the searched_user {{message}}</h2>
+        {% endif %}
+    </div>
+    <div class="row">
+        {% if searched_user %}
+        {% for searched_user in searched_user %}
+        <div class="col-md-2"></div>
+        <div class="col-sm-6 col-md-8">
+            <a href="{% url 'profile' name.id%}">
+                <img src="" class="img-responsive" alt="Image" style="width:100%">{{name.username}}
+            </a>
+        </div>
+        <div class="col-md-2"></div> 
+         {% endfor %} 
+         {% endif %}
+    </div>
+</div>
+{% endblock %}

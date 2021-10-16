@@ -46,3 +46,37 @@ class Image (models.Model):
     def likes(self):
         pass
         # return self.likes.count()
+
+class Profile(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE, null= True)
+    name = models.CharField(blank = True,max_length = 30)
+    email = models.CharField(blank = True, max_length = 100)
+    bio = models.TextField(max_length=100)
+    profile_image = models.ImageField(upload_to = 'images/')
+    follow = models.ManyToManyField(User, related_name='follows',blank = True)
+    
+    def __str__(self):
+        return self.name
+
+    def save_profile(self):
+        self.save()
+        
+    @classmethod
+    def get_profile(cls,id):
+        profile = Profile.objects.all()
+        return profile
+        
+    @classmethod
+    def update_profile(cls,id,new_name):
+        cls.objects.filter(id=id).update(name = new_name)
+
+    @classmethod
+    def delete_profile(cls,id):
+        cls.objects.filter(id).delete()
+
+
+    @classmethod
+    def search_by_name(cls, searched_name):
+        username = cls.objects.filter(name__icontains=searched_name)
+
+        return username

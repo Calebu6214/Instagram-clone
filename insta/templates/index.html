@@ -5,7 +5,7 @@
 <!-- <div class="container" style="background-color: aliceblue;"> -->
     <br><br><b></b>
     {% for image in images %}
-    <div class="row">
+    <div style="background-color:skyblue" class="row">
         <div class=" col-md-3 ">
         </div>
         
@@ -13,14 +13,14 @@
             <div class="card mb-2 m-0" style="width:rem;">
                 <div class="card-header">
                     <span><img src="{{request.user.profile.profile_image.url}}" alt=""
-                            data-target="#{{image.image_name}}{{image.id}}" data-toggle="modal"
+                            data-bs-target="#{{image.image_name}}{{image.id}}" data-bs-toggle="modal"
                             style="border-radius: 50%; width:50px; height:50px;"></span>
                     <span>
                         <p>{{image.user.username}}</p>
                     </span>
                 </div>
                 <img src="{{image.image.url}}" alt="" class="img-thumbnail img-responsive img-fluid m-0"
-                    data-toggle="modal" data-target="#{{image.name}}{{image.id}}">
+                    data-bs-toggle="modal" data-bs-target="#{{image.name}}{{image.id}}">
                 <p>{{image.image_caption}}</p>
                 <p>{{image.image_name}}</p>
                 <div class="card-footer">

@@ -40,17 +40,24 @@ def logoutUser(request):
     logout(request)
     return redirect('login')
 
-@login_required(login_url='/accounts/login/')
-def post(request):
-    current_user = request.user
-    if request.method == 'POST':
-        form = NewPostForm(request.POST, request.FILES)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.Author = current_user
-            post.save()
-        return redirect('loginPage')
+# @login_required(login_url='/accounts/login/')
+# def post(request):
+#     current_user = request.user
+#     if request.method == 'POST':
+#         form = NewPostForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             post = form.save(commit=False)
+#             post.Author = current_user
+#             post.save()
+#         return redirect('loginPage')
 
-    else:
-        form = NewPostForm()
-    return render(request, 'post.html', {"form": form})
+#     else:
+#         form = NewPostForm()
+#     return render(request, 'post.html', {"form": form})
+
+@login_required(login_url='login/')
+def indexPage(request):
+    images=Image.objects.all()
+    comments=Comments.objects.all()
+    profile = Profile.objects.all()
+    return render(request,'index.html',{"images":images,"comments":comments, "profile":profile})

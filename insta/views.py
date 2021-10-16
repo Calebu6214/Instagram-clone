@@ -93,3 +93,65 @@ def upload_image(request):
     else:
         form = ImageForm()
         return render(request,'upload_image.html', {"form":form})
+
+# @login_required (login_url='/accounts/register/')          
+def image_likes(request,id):
+    image =  Image.get_single_photo(id)
+    user = request.user
+    user_id = user.id
+    
+    if user.is_authenticated:
+    
+        image.save()
+        
+    return redirect('indexPage')
+
+def add_comment(request,id):
+    current_user = request.user
+    image = Image.get_single_photo(id=id)
+    if request.method == 'POST':
+        form = CommentsForm(request.POST)
+       
+        
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = current_user
+            comment.image_id = id
+            comment.save()
+        return redirect('/')
+
+    else:
+        form = CommentsForm()
+        return render(request,'add_comment.html',{"form":form,"image":image})  
+    
+def edit_profile(request):
+    current_user = request.user
+    if request.method == 'POST':
+        # import pdb;pdb.set_trace()
+        form = ProfileForm(request.POST,request.FILES)
+        if form.is_valid():
+            image = form.save(commit=False)
+            image.editor = current_user
+            image.save()
+        return redirect ('profile')
+
+    else:
+        form = ProfileForm()
+        return render(request,'django_registration/edit_profile.html',{"form":form})
+    
+    
+
+
+def create_post(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = ImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.save(commit=False)
+            image.profile = current_user
+            image.save()
+        return redirect('/')
+
+    else:
+        form = ImageForm()
+    return render(request, 'new_post.html', {"form": form})

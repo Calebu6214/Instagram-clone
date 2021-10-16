@@ -1,0 +1,27 @@
+{% extends 'django_registration/base.html' %} {% block content %}
+<header>
+  <div class="container">
+    <div class="profile">
+      <div class="profile-image">
+        <img class='img' src="{{user.profile.image.url}}" alt="">
+      </div>
+      <div class="profile-user-settings">
+        <h1 class="profile-user-name">{{ user.username }}</h1>
+        <button class="btn profile-edit-btn"><a href="{% url 'edit_profile' %}"><i class="fa fa-instagram" aria-hidden="true"></i></a></button>
+        <a href="" data-toggle="modal" data-target="#exampleModal"><button class="btn profile-settings-btn" aria-label="profile settings">Edit Profile</button></a>
+			</div>
+      </div>
+      <div class="profile-stats list-inline">
+        <ul class="list-inline">
+          <li><span class="list-inline-item">5</span> following</li>
+          <li><span class="list-inline-item">3</span> posts</li>
+          <li><span class="list-inline-item">3</span> followers</li>
+          </ul>
+      </div>
+      <div class="profile-bio">
+        <p><span class="profile-real-name"></span> {{ profile.bio }}</p>
+      </div>
+    </div>
+  </div>
+</header>
+{% endblock %}

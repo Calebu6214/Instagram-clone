@@ -80,3 +80,16 @@ def search_username(request):
     else:
         message = "Sorry, No one by this username"
         return render(request, 'search.html', {"message": message})
+
+def upload_image(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = ImageForm(request.POST,request.FILES)
+        if form.is_valid():
+            image = form.save(commit=False)
+            image.user = current_user
+        return redirect('/')
+
+    else:
+        form = ImageForm()
+        return render(request,'upload_image.html', {"form":form})

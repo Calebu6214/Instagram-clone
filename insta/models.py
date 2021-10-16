@@ -80,3 +80,30 @@ class Profile(models.Model):
         username = cls.objects.filter(name__icontains=searched_name)
 
         return username
+
+class Comments(models.Model):
+    comment = models.TextField(blank = True, max_length=500)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,blank = True)
+    image = models.ForeignKey(Image, blank=True, on_delete=models.CASCADE)
+    date_posted = models.DateTimeField(default=timezone.now)     
+
+    def __str__(self):
+        return self.comment
+
+    def save_comment(self):
+        self.save()
+    
+    
+    @classmethod
+    def update_comment(cls,id,new_comment):
+        cls.objects.filter(id=id).update(comment = new_comment)
+        
+    @classmethod
+    def get_comments(cls,id):
+        comments = cls.objects.filter(image__id=id)
+        return comments
+    
+
+    @classmethod
+    def delete_comment(cls,id):
+        cls.objects.filter(id).delete()

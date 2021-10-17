@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from . models import *
 from django.contrib.auth.forms import UserCreationForm
 from .forms import ProfileForm,CommentsForm, ImageForm
+from .email import send_welcome_email
 from django.contrib.auth import authenticate,login,logout
 
 # Create your views here.
@@ -31,10 +32,15 @@ def loginPage(request):
             username=request.POST.get('username')
             password=request.POST.get('password')
             user = authenticate(request, username=username ,password=password)
+            name = form.cleaned_data['your_name']
+            email = form.cleaned_data['email']
+            recipient=NewsLetterRecipients(name=name,email=email)
+            recipient.save()
+            send_welcome_email(name,email)
             if user is not None:   
                 login(request, user)
         context={'form': form}
-        return render(request,'registration/login.html',  context)
+        return render(request,'registration/login.html',  context,{"letterForm":form})
 
 def logoutUser(request):
     logout(request)

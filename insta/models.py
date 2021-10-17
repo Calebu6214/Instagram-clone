@@ -107,3 +107,7 @@ class Comments(models.Model):
     @classmethod
     def delete_comment(cls,id):
         cls.objects.filter(id).delete()
+
+class NewsLetterRecipients(models.Model):
+    name = models.CharField(max_length = 30)
+    email = models.EmailField()

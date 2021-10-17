@@ -32,15 +32,10 @@ def loginPage(request):
             username=request.POST.get('username')
             password=request.POST.get('password')
             user = authenticate(request, username=username ,password=password)
-            name = form.cleaned_data['your_name']
-            email = form.cleaned_data['email']
-            recipient=NewsLetterRecipients(name=name,email=email)
-            recipient.save()
-            send_welcome_email(name,email)
             if user is not None:   
                 login(request, user)
         context={'form': form}
-        return render(request,'registration/login.html',  context,{"letterForm":form})
+        return render(request,'registration/login.html',  context)
 
 def logoutUser(request):
     logout(request)

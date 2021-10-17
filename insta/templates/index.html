@@ -5,7 +5,7 @@
 <!-- <div class="container" style="background-color: aliceblue;"> -->
     <br><br><b></b>
     {% for image in images %}
-    <div style="background-color:skyblue" class="row">
+    <div style="background-color:plum" class="row">
         <div class=" col-md-3 ">
         </div>
         
@@ -25,7 +25,7 @@
                 <p>{{image.image_name}}</p>
                 <div class="card-footer">
                     <!-- {{image.likes}} -->
-                    <button type="button" onclick="myFunction()"><id= class="fa fa-heart-o" id="demo" onclick="myFunction()"></i></button>
+                    <button type="button"><id= class="fa fa-heart-o" id="demo" onclick="myFunction()"></i></button>
                     {% for comment in comments %}
                     <p>
                         <span class="font-weight-bold">{{ comment.author }} &middot;</span>
@@ -37,7 +37,7 @@
                         
                     </div>
                     <p class="">posted:{{ image.date_posted|timesince}}</p>
-
+                    <button class="btn btn-success" id="del">Delete image</button>
                     {%block script%}
                     <script>
                         var add = (function () {

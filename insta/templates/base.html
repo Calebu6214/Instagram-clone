@@ -30,13 +30,13 @@
             {% if user.is_authenticated %}
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <h2 style="font-family: 'Playfair Display', serif;color: crimson;">Instagram</h2>
+                    <h2 style="font-family: 'Playfair Display', serif;color: rgb(220, 20, 210);">Instagram</h2>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" style="color:seagreen" href="{%url 'profile'%}">Welcome {{user.username}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="{% url 'logout' %}" tabindex="-1" aria-disabled="true">logout </a>
+                    <a class="nav-link " href="{% url 'logout' %}" tabindex="-1" style="font-size: x-larger; font-weight: bold;" aria-disabled="true">logout </a>
                 </li>
                 <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'search_username'%}">
                     <input class="form-control mr-sm-2" type="search" placeholder= "Search " aria-label="Search"
@@ -58,6 +58,10 @@
                 <li class="nav-item active">
                     <a class="nav-link" style="color: green;" href="{% url 'create_post' %}">New Post</a>
                 </li>
+                <li>
+                    <a href="/accounts/password/change">Change Password</a>
+                  </li>
+                  <li>
             </ul>
             {%else%}
             <li class="nav-item">

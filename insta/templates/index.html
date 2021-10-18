@@ -40,7 +40,7 @@
                         
                     </div>
                     <p class="">posted:{{ image.date_posted|timesince}}</p>
-                    <button class="btn btn-success" id="del">Delete image</button>
+                    <a href="{% url 'deletepost' image.id %}"><button class="btn btn-success" id="del">Delete image</button></a> 
                     {%block script%}
                     <script>
                         var add = (function () {

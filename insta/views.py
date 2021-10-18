@@ -156,3 +156,15 @@ def create_post(request):
     else:
         form = ImageForm()
     return render(request, 'new_post.html', {"form": form})
+
+def delete_image(request,id):
+    image = Image.objects.get(id=id)
+    if request.method == 'POST':
+        image.delete()
+        return redirect('/')
+    return render(request, 'delete_post.html',{})
+
+
+
+
+

@@ -14,6 +14,7 @@ urlpatterns=[
     url('likes/(\d+)/' , views.image_likes, name='likes'),
     url('new_comment/(\d+)/' ,views.add_comment,name='Comments'),
     path('post/', views.create_post,name='create_post'),
+    path('delete/<int:id>',views.delete_image, name = 'deletepost'),
     path('registration/', views.registerPage, name="registration"),
     path('login/', views.loginPage, name="login"),
     path('logout/', views.logoutUser, name="logout"),
